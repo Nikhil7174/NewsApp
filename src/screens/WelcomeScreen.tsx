@@ -1,4 +1,3 @@
-//@ts-nocheck
 import {
   View,
   Text,

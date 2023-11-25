@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules/
+utils/ApiKey.ts
 
 # Expo
 .expo/

@@ -12,7 +12,7 @@ import SavedScreen from "../screens/SavedScreen";
 import SplashScreen from "../screens/SplashScreen";
 import { Ionicons } from "@expo/vector-icons";
 import SearchScreen from "../screens/SearchScreen";
-import { useColorScheme } from "nativewind";
+import { useColorScheme } from "nativewind";      
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,12 +45,12 @@ const AppNavigation = () => {
               <Ionicons
                 name={iconName}
                 size={customizeSize}
-                color={focused ? "green" : "gray"}
+                color={focused ? "black" : "gray"}
               />
             );
           },
 
-          tabBarActiveTintColor: "green",
+          tabBarActiveTintColor: "black",
           tabBarInactiveTintColor: "gray",
           tabBarLabelStyle: {
             fontSize: 12,
@@ -86,7 +86,7 @@ const AppNavigation = () => {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="NewsDetails" component={NewsDetailsScreen} options={{ animation: "slide_from_bottom"}}/>
-        {/* <Stack.Screen name="HomeTabs" component={TabNavigator} /> */}
+        <Stack.Screen name="HomeTabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
