@@ -14,11 +14,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi";
 import MiniHeader from "../components/Header/MiniHeader";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import BreakingNews from "../components/BreakingNews/BreakingNews";
+import { isLoading } from "expo-font";
 
 export default function HomeScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
-  const [breakingNews, SetBreakingNews] = useState([]);
-  const [recommendedNews, SetRecommendedNews] = useState([]);
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [recommendedNews, setRecommendedNews] = useState([]);
 
   // const loadMoreData = async () => {
      // Fetch more data and append it to the existing newsMain array
@@ -27,22 +29,23 @@ export default function HomeScreen() {
   // };
 
   // Breaking News
-  const { isLoading: isTrendingLoading } = useQuery({
-    queryKey: ["breakingNewss"],
+  const { isLoading: isTrendingLoading , data: ApiData, error, isSuccess} = useQuery({
+    queryKey: ["breakingNews"],
     queryFn: fetchBreakingNews,
-    onSuccess: (data) => {
-      SetBreakingNews(data.articles);
-    },
-    onError: (error) => {
-      console.log("Error fetching breaking news", error);
-    },
+
   });
 
+  // if(isSuccess) setBreakingNews(ApiData)
+
+  // console.log(ApiData)
+  const bData:any = ApiData;
+
   const { isLoading: isRecommendedLoading } = useQuery({
-    queryKey: ["recommededNewss"],
+    queryKey: ["recommededNews"],
     queryFn: fetchRecommendedNews,
+    //@ts-ignore
     onSuccess: (data) => {
-      SetRecommendedNews(data.articles);
+      setRecommendedNews(data.articles);
     },
     onError: (error) => {
       console.log("Error fetching recommended news", error);
@@ -59,9 +62,33 @@ export default function HomeScreen() {
         {/* Header */}
         <Header />
 
+        {/* Trending News */}
+
+        {isTrendingLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View className="">
+          <MiniHeader label="Breaking News" />
+          {ApiData != undefined && <BreakingNews label="Breaking News" data={ApiData} />}
+            
+          </View>
+        )}
+
         {/* News */}
         <View className="">
           <MiniHeader label="Recommended" />
+
+          <ScrollView
+            contentContainerStyle={{
+              paddingBottom: hp(80),
+            }}
+          >
+            {/* <NewsSection
+              label="Recommendation"
+              categories={categories}
+              newsMain={recommendedNews}
+            /> */}
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
