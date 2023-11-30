@@ -4,11 +4,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "nativewind";
 import { StatusBar } from "expo-status-bar";
 // import Loading from "../components/Loading";
-// import { categories } from "../constants";
+import { categories } from "../constants/categories";
 
 // import TrendingNews from "../components/TrendingNews";
 import Header from "../components/Header/Header";
-// import NewsSection from "../components/NewsSection/NewsSection";
+import NewsSection from "../components/NewsSection/NewsSection";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi";
@@ -32,24 +32,11 @@ export default function HomeScreen() {
   const { isLoading: isTrendingLoading , data: ApiData, error, isSuccess} = useQuery({
     queryKey: ["breakingNews"],
     queryFn: fetchBreakingNews,
-
   });
 
-  // if(isSuccess) setBreakingNews(ApiData)
-
-  // console.log(ApiData)
-  const bData:any = ApiData;
-
-  const { isLoading: isRecommendedLoading } = useQuery({
+  const { isLoading: isRecommendedLoading , data: ApiData2 } = useQuery({
     queryKey: ["recommededNews"],
     queryFn: fetchRecommendedNews,
-    //@ts-ignore
-    onSuccess: (data) => {
-      setRecommendedNews(data.articles);
-    },
-    onError: (error) => {
-      console.log("Error fetching recommended news", error);
-    },
   });
 
   // console.log("breakingNews", breakingNews);
@@ -83,11 +70,11 @@ export default function HomeScreen() {
               paddingBottom: hp(80),
             }}
           >
-            {/* <NewsSection
+            <NewsSection
+              newsMain={ApiData2.articles}
               label="Recommendation"
-              categories={categories}
-              newsMain={recommendedNews}
-            /> */}
+              loadMoreData={categories}
+            />
           </ScrollView>
         </View>
       </View>
