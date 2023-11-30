@@ -16,6 +16,7 @@ import MiniHeader from "../components/Header/MiniHeader";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import BreakingNews from "../components/BreakingNews/BreakingNews";
 import { isLoading } from "expo-font";
+import Loading from "../components/Loading";
 
 export default function HomeScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -40,6 +41,7 @@ export default function HomeScreen() {
   });
 
   // console.log("breakingNews", breakingNews);
+  console.log(ApiData2)
 
   return (
     <SafeAreaView className=" flex-1 bg-white dark:bg-neutral-900">
@@ -52,7 +54,8 @@ export default function HomeScreen() {
         {/* Trending News */}
 
         {isTrendingLoading ? (
-        <Text>Loading...</Text>
+        // <Text>Loading...</Text>
+        <Loading/>
       ) : (
         <View className="">
           <MiniHeader label="Breaking News" />
@@ -70,11 +73,16 @@ export default function HomeScreen() {
               paddingBottom: hp(80),
             }}
           >
+            {isRecommendedLoading ? (
+        // <Text>Loading...</Text>
+        <Loading/>
+      ) : (
             <NewsSection
               newsMain={ApiData2.articles}
               label="Recommendation"
               loadMoreData={categories}
             />
+      )}
           </ScrollView>
         </View>
       </View>
