@@ -17,7 +17,7 @@ import { categories, newsData } from "../constants/categories";
 
 import BreakingNews from "../components/BreakingNews/BreakingNews";
 import Header from "../components/Header/Header";
-// import CategoriesCard from "../components/CategoriesCard";
+import CategoriesCard from "../components/CategoriesCard";
 import NewsSection from "../components/NewsSection/NewsSection";
 import { MagnifyingGlassIcon, XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
@@ -97,11 +97,11 @@ export default function DiscoverScreen() {
 
           {/* Categories */}
           <View className="flex-row mx-4">
-            {/* <CategoriesCard
+            <CategoriesCard
             categories={categories}
             activeCategory={activeCategory}
             handleChangeCategory={handleChangeCategory}
-          /> */}
+          />
           </View>
           <View className="h-full">
             {/* News */}
