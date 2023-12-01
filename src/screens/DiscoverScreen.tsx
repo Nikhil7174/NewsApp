@@ -33,10 +33,6 @@ export default function DiscoverScreen() {
   const [newsMain, setNewsMain] = useState([]);
   const [discoverNews, setDiscoverNews] = useState([]);
 
-  useEffect(() => {
-    console.log("active category", activeCategory);
-  }, [activeCategory]);
-
   const handleChangeCategory = (category) => {
     // getRecipes(category);
     setActiveCategory(category);
