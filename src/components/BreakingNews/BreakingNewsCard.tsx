@@ -13,7 +13,7 @@ const BreakingNewsCard = ({item, handleclick}) => {
         <View className='relative'>
             <Image 
                 source = {{
-                    uri: item.urlToImage
+                    uri: item.urlToImage || "https://images.pexels.com/photos/2872418/pexels-photo-2872418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 }}
                 style = {{
                     width: width * 0.8,

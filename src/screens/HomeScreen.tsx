@@ -1,16 +1,17 @@
 import { View, ScrollView, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useColorScheme } from "nativewind";
 import { StatusBar } from "expo-status-bar";
 // import Loading from "../components/Loading";
 import { categories } from "../constants/categories";
 
+
 // import TrendingNews from "../components/TrendingNews";
 import Header from "../components/Header/Header";
 import NewsSection from "../components/NewsSection/NewsSection";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchBreakingNews, fetchRecommendedNews } from "../../utils/NewsApi";
 import MiniHeader from "../components/Header/MiniHeader";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -23,25 +24,65 @@ export default function HomeScreen() {
   const [breakingNews, setBreakingNews] = useState([]);
   const [recommendedNews, setRecommendedNews] = useState([]);
 
+  const [dataFromChild, setDataFromChild] = useState("in");
+
+  // const queryClient = useQueryClient();
+
+  // Function to receive data from the child component
+  const handleDataFromChild = (data) => {
+    console.log('Data from child                           :', data);
+    setDataFromChild(data);
+  };
+
   // const loadMoreData = async () => {
      // Fetch more data and append it to the existing newsMain array
   //   const moreData = await fetchMoreNewsData(); // Implement this function to fetch more data
   //   SetRecommendedNews((prevData) => [...prevData, ...moreData]);
   // };
 
+  console.log(dataFromChild, "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", dataFromChild, "www")
+  const country = "us"
+  console.log(country)
   // Breaking News
-  const { isLoading: isTrendingLoading , data: ApiData, error, isSuccess} = useQuery({
-    queryKey: ["breakingNews"],
-    queryFn: fetchBreakingNews,
-  });
-
-  const { isLoading: isRecommendedLoading , data: ApiData2 } = useQuery({
-    queryKey: ["recommededNews"],
-    queryFn: fetchRecommendedNews,
-  });
-
+    const { isLoading: isTrendingLoading , data: ApiData, error, isSuccess} = useQuery({
+      queryKey: ["breakingNews", dataFromChild],
+      queryFn: ()=>fetchBreakingNews(dataFromChild),
+    });
+  
+    const { isLoading: isRecommendedLoading , data: ApiData2 } = useQuery({
+      queryKey: ["recommededNews", dataFromChild],
+      queryFn: ()=>fetchRecommendedNews(dataFromChild),
+    });
+  
+  console.log(dataFromChild)
   // console.log("breakingNews", breakingNews);
   console.log(ApiData2)
+
+  // useEffect(() => {
+  //   const invalidateBreakingNews = async () => {
+  //     try {
+  //       // Invalidate the cache for breaking news query when the country code changes
+  //       await queryClient.invalidateQueries(["breakingNews", dataFromChild]);
+  //     } catch (error) {
+  //       console.error("Error invalidating breaking news cache:", error);
+  //     }
+  //   };
+
+  //   invalidateBreakingNews();
+  // }, [dataFromChild, queryClient]);
+
+  // useEffect(() => {
+  //   const invalidateRecommendedNews = async () => {
+  //     try {
+  //       // Invalidate the cache for recommended news query when the country code changes
+  //       await queryClient.invalidateQueries(["recommendedNews", dataFromChild]);
+  //     } catch (error) {
+  //       console.error("Error invalidating recommended news cache:", error);
+  //     }
+  //   };
+
+  //   invalidateRecommendedNews();
+  // }, [dataFromChild, queryClient]);
 
   return (
     <SafeAreaView className=" flex-1 bg-white dark:bg-neutral-900">
@@ -49,7 +90,7 @@ export default function HomeScreen() {
 
       <View>
         {/* Header */}
-        <Header />
+        <Header handleDataFromChild={handleDataFromChild}/>
 
         {/* Trending News */}
 

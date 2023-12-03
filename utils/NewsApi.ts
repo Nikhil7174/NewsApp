@@ -5,11 +5,11 @@ import axios from "axios";
 
 const apiBaseUrl = "https://newsapi.org/v2";
 
-const breakingNewsUrl = `${apiBaseUrl}/top-headlines?country=us&apiKey=${newsApiKey}`;
-const recommendedNewsUrl = `${apiBaseUrl}/top-headlines?country=us&category=business&apiKey=${newsApiKey}`;
+const breakingNewsUrl = (country) => `${apiBaseUrl}/top-headlines?country=${country}&apiKey=${newsApiKey}`;
+const recommendedNewsUrl = (country) => `${apiBaseUrl}/top-headlines?country=${country}&category=business&apiKey=${newsApiKey}`;
 
-const discoverNewsUrl = (discover) =>
-  `${apiBaseUrl}/top-headlines?country=us&category=${discover}&apiKey=${newsApiKey}`;
+const discoverNewsUrl = (discover, country) =>
+  `${apiBaseUrl}/top-headlines?country=${country}&category=${discover}&apiKey=${newsApiKey}`;
 
 const searchNewsUrl = (query) =>
   `${apiBaseUrl}/everything?q=${query}&apiKey=${newsApiKey}`;
@@ -30,16 +30,16 @@ const newsApiCall = async (endpoints, params) => {
   }
 };
 
-export const fetchBreakingNews = async () => {
-  return await newsApiCall(breakingNewsUrl);
+export const fetchBreakingNews = async (country) => {
+  return await newsApiCall(breakingNewsUrl(country));
 };
 
-export const fetchRecommendedNews = async () => {
-  return await newsApiCall(recommendedNewsUrl);
+export const fetchRecommendedNews = async (country) => {
+  return await newsApiCall(recommendedNewsUrl(country));
 };
 
-export const fetchDiscoverNews = async (discover) => {
-  return await newsApiCall(discoverNewsUrl(discover));
+export const fetchDiscoverNews = async (discover, country) => {
+  return await newsApiCall(discoverNewsUrl(discover, country));
 };
 
 

@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Dimensions,
+  Share
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -63,6 +64,28 @@ export default function NewsDetails() {
     }
   };
 
+  const onShare = async () => {
+
+    const shareOpt = {
+      message: item.url,
+
+    }
+    try {
+      const shareResponse = await Share.share(shareOpt)
+      if (shareResponse.action === Share.sharedAction) {
+        if (shareResponse.activityType)
+          console.log("shared with activity type of", shareResponse.activityType);
+        else
+          console.log("shared")
+
+      }
+      else if (shareResponse.action === Share.dismissedAction)
+        console.log("Dismissed");
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     // Load saved articles from AsyncStorage when the component mounts
     const loadSavedArticles = async () => {
@@ -97,7 +120,7 @@ export default function NewsDetails() {
         </View>
 
         <View className="space-x-3 rounded-full items-center justify-center flex-row">
-          <TouchableOpacity className="bg-gray-100 p-2 rounded-full">
+          <TouchableOpacity className="bg-gray-100 p-2 rounded-full" onPress={onShare}>
             <ShareIcon size={25} color="gray" strokeWidth={2} />
           </TouchableOpacity>
           <TouchableOpacity

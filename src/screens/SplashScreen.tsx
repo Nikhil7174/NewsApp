@@ -23,7 +23,7 @@ export default function SplashScreens() {
     setTimeout(() => {
       //@ts-ignore
       navigation.navigate("Welcome"); // Navigate to HomeTab
-    }, 3000); // 3 seconds delay
+    }, 2000); // 2 seconds delay
   });
 
   useEffect(() => {

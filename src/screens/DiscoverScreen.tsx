@@ -42,14 +42,14 @@ export default function DiscoverScreen() {
 
   const { isLoading: isDiscoverLoading, data: Apidata } = useQuery({
     queryKey: ["discoverNews", activeCategory], // Include the category as part of the key
-    queryFn: () => fetchDiscoverNews(activeCategory), // You can skip the query if the category is "business"
+    queryFn: () => fetchDiscoverNews(activeCategory,"in"), // You can skip the query if the category is "business"
   });
 
-  if (!isDiscoverLoading) {
-    // Filter out articles with title "[Removed]"
-    const filteredNews = Apidata.articles.filter(
-      (article) => article.title !== "[Removed]"
-    );
+  // if (!isDiscoverLoading) {
+  //   // Filter out articles with title "[Removed]"
+  //   const filteredNews = Apidata.articles.filter(
+  //     (article) => article.title !== "[Removed]"
+  //   );
     // setDiscoverNews(filteredNews);
 
     return (
@@ -133,7 +133,7 @@ export default function DiscoverScreen() {
               >
                 <NewsSection
                   loadMoreData={categories}
-                  newsMain={filteredNews}
+                  newsMain={Apidata.articles}
                   label="Discovery"
                 />
               </ScrollView>
@@ -143,4 +143,3 @@ export default function DiscoverScreen() {
       </SafeAreaView>
     );
   }
-}

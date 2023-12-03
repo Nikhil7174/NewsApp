@@ -13,6 +13,7 @@ import SplashScreen from "../screens/SplashScreen";
 import { Ionicons } from "@expo/vector-icons";
 import SearchScreen from "../screens/SearchScreen";
 import { useColorScheme } from "nativewind";      
+import SettingsScreen from "../screens/SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -86,6 +87,7 @@ const AppNavigation = () => {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="NewsDetails" component={NewsDetailsScreen} options={{ animation: "slide_from_bottom"}}/>
+        <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="HomeTabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
