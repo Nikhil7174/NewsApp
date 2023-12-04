@@ -5,14 +5,17 @@ import { useNavigation } from "@react-navigation/native";
 import { useColorScheme } from "nativewind";
 import CountryPicker from 'react-native-country-picker-modal'
 import { LogBox } from 'react-native';
+import { useDispatch, useSelector } from "react-redux";
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
+import { setCCode } from '../../redux/Reducer';
 
 export default function Header({handleDataFromChild}) {
   const navigation = useNavigation();
   const { colorScheme, toggleColorScheme } = useColorScheme();
 
   const [cmodal, setCModal] = useState(false)
+  
 
   const [countryCode, setCountryCode] = useState<any>('FR')
   const [country, setCountry] = useState<any>(null)
@@ -38,16 +41,23 @@ export default function Header({handleDataFromChild}) {
 
   console.log("header  00000000111222",countryCode.toLowerCase())
 
+  const dispatch = useDispatch();
+  const countryCodeToSend = useSelector((state:any) => state.cart.countryCode);
+
+  const handleCountryChange = (newCountryCode) => {
+    dispatch(setCCode(newCountryCode));
+  };
+
   return (
     <View className="flex-row justify-between items-center mx-4 mt-4">
       <View className="">
         <Text
-          className="font-spaceGroteskBold text-2xl text-green-800 dark:text-white font-extrabold uppercase"
+          className="font-spaceGroteskBold text-2xl text-blue-900 dark:text-white font-extrabold uppercase"
           style={{
             fontFamily: "SpaceGroteskBold",
           }}
         >
-          stack news
+          NewsBite
         </Text>
       </View>
 
@@ -58,19 +68,22 @@ export default function Header({handleDataFromChild}) {
         <TouchableOpacity
         //@ts-ignore
           onPress={() => navigation.navigate("Search")}
-          className="bg-gray-200 dark:bg-green-800  rounded-full p-2"
+          className="bg-gray-200 dark:bg-slate-700  rounded-full p-2"
         >
           <MagnifyingGlassIcon
             size={25}
             //@ts-ignore
             strokeWidth={2}
-            color={colorScheme == "dark" ? "white" : "green"}
+            color={colorScheme == "dark" ? "white" : "black"}
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
-          <Bars3Icon size={25} strokeWidth={2} color={colorScheme == "dark" ? "white" : "green"} />
+          <Bars3Icon size={25} strokeWidth={2} color={colorScheme == "dark" ? "white" : "black"} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleDataFromChild(countryCode.toLowerCase())}>
+        <TouchableOpacity onPress={
+          // handleDataFromChild(countryCode)
+          handleCountryChange(countryCode.toLowerCase())
+        }>
           {/* <BellIcon size={25} strokeWidth={2} color={colorScheme == "dark" ? "white" : "green"}/> */}
         <CountryPicker
         {...{

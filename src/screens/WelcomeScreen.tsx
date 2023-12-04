@@ -41,7 +41,7 @@ export default function Welcome() {
             fontFamily: "SpaceGroteskBold",
           }}
         >
-          Stay Informed from Day One
+          Stay Updated with the World
         </Text>
         <Text
           className="font-bold text-white text-center max-w-[85%] leading-12 tracking-wider"
@@ -55,7 +55,7 @@ export default function Welcome() {
       </View>
 
       <TouchableOpacity
-        className="bg-[#3953f5] rounded-full p-4 justify-center items-center w-[90%] mt-8"
+        className="bg-[#222f8e] rounded-full p-4 justify-center items-center w-[90%] mt-8 mb-10"
         //@ts-ignore
         onPress={() => navigation.navigate("HomeTabs")}
       >

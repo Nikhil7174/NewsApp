@@ -23,6 +23,7 @@ import { MagnifyingGlassIcon, XMarkIcon } from "react-native-heroicons/outline";
 import { useNavigation } from "@react-navigation/native";
 import { fetchDiscoverNews } from "../../utils/NewsApi";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useSelector } from "react-redux";
 
 export default function DiscoverScreen() {
   const navigation = useNavigation();
@@ -40,10 +41,20 @@ export default function DiscoverScreen() {
     console.log("category", category);
   };
 
-  const { isLoading: isDiscoverLoading, data: Apidata } = useQuery({
+
+  const cc = useSelector((state:any)=>state.cart.countryCode)
+  console.log(cc,"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii-------------------")  
+
+
+  const { isLoading: isDiscoverLoading, data: Apidata, refetch: Refetch } = useQuery({
     queryKey: ["discoverNews", activeCategory], // Include the category as part of the key
-    queryFn: () => fetchDiscoverNews(activeCategory,"in"), // You can skip the query if the category is "business"
+    queryFn: () => fetchDiscoverNews(activeCategory,cc), // You can skip the query if the category is "business"
   });
+
+    // useEffect to automatically trigger a refetch when the country code changes
+    useEffect(() => {
+      Refetch();
+    }, [cc]);
 
   // if (!isDiscoverLoading) {
   //   // Filter out articles with title "[Removed]"
@@ -60,7 +71,7 @@ export default function DiscoverScreen() {
           {/* Header */}
           <View className="px-4 mb-6 justify-between">
             <Text
-              className="text-3xl text-green-800 dark:text-white"
+              className="text-3xl text-blue-900 dark:text-white"
               style={{
                 fontFamily: "SpaceGroteskBold",
               }}
@@ -112,7 +123,7 @@ export default function DiscoverScreen() {
               </Text>
 
               <Text
-                className="text-base text-green-800 dark:text-neutral-300"
+                className="text-base text-blue-900 dark:text-neutral-300"
                 style={{
                   fontFamily: "SpaceGroteskBold",
                 }}

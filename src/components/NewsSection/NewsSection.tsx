@@ -109,7 +109,7 @@ export default function NewsSection({ newsMain, label, loadMoreData }) {
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
-        className="mb-4 mx-4 space-y-1"
+        className="mb-4 mx-4 space-y-1 "
         key={index}
         onPress={() => handleClick(item)}
       >
@@ -163,7 +163,7 @@ export default function NewsSection({ newsMain, label, loadMoreData }) {
               onPress={() => toggleBookmarkAndSave(item, index)}
             >
               <BookmarkSquareIcon
-                color={bookmarkStatus[index] ? "green" : "gray"}
+                color={bookmarkStatus[index] ? "#1e3a8a" : "gray"}
               />
             </TouchableOpacity>
           </View>

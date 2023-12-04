@@ -79,7 +79,7 @@ export default function SearchScreen() {
           className=" font-medium text-black tracking-wider p-3 "
         />
         <TouchableOpacity onPress={clearSearch}>
-          <XMarkIcon size="25" color="green" strokeWidth={3} />
+          <XMarkIcon size="25" color="#1e3a8a" strokeWidth={3} />
         </TouchableOpacity>
       </View>
 

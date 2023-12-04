@@ -168,7 +168,7 @@ export default function SavedScreen() {
             <TouchableOpacity
               onPress={() => toggleBookmarkAndSave(item, index)}
             >
-              <BookmarkSquareIcon color="green" />
+              <BookmarkSquareIcon color="#1e3a8a" />
             </TouchableOpacity>
           </View>
         </View>
@@ -182,7 +182,7 @@ export default function SavedScreen() {
       {/* Header  */}
       <View className="flex-row justify-between items-center">
         <Text
-          className="font-bold text-xl text-green-800 dark:text-white"
+          className="font-bold text-xl text-blue-900 dark:text-white"
           style={{
             fontFamily: "SpaceGroteskBold",
           }}
@@ -191,7 +191,7 @@ export default function SavedScreen() {
         </Text>
         <TouchableOpacity
           onPress={clearSavedArticles}
-          className="bg-green-800 py-1 px-4 rounded-lg"
+          className="bg-blue-900 py-1 px-4 rounded-lg"
         >
           <Text
             className="font-bold text-lg text-white dark:text-white"

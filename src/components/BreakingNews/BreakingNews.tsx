@@ -25,7 +25,7 @@ export default function BreakingNews({  label, data }) {
       <Carousel
         data={data.articles}
         renderItem={({ item }) => (
-            <BreakingNewsCard item={item} handleclick={handleClick} />
+            <BreakingNewsCard item={item} handleclick={handleClick}/>
           )}
         firstItem={1}
         inactiveSlideScale={0.86}

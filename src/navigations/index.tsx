@@ -14,6 +14,8 @@ import { Ionicons } from "@expo/vector-icons";
 import SearchScreen from "../screens/SearchScreen";
 import { useColorScheme } from "nativewind";      
 import SettingsScreen from "../screens/SettingsScreen";
+import { Provider } from "react-redux";
+import  store  from "../redux/Store";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -24,6 +26,7 @@ const AppNavigation = () => {
 
   const TabNavigator = () => {
     return (
+      <Provider store={store}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
@@ -41,25 +44,39 @@ const AppNavigation = () => {
             }
 
             const customizeSize = 25;
-
-            return (
-              <Ionicons
-                name={iconName}
-                size={customizeSize}
-                color={focused ? "black" : "gray"}
-              />
-            );
+            colorScheme == "dark" ? "black" : "white"
+            if(colorScheme == "dark"){
+              return (
+                <Ionicons
+                  name={iconName}
+                  size={customizeSize}
+                  color={focused ? "white" : "gray" }
+                  // color="green"
+                />
+              );
+            }else{
+              return (
+                <Ionicons
+                  name={iconName}
+                  size={focused ? customizeSize+5 :customizeSize}
+                  color={focused ? "#1e3a8a" : "gray" }
+                  // color="green"
+                />
+              );
+            }
           },
 
           tabBarActiveTintColor: "black",
           tabBarInactiveTintColor: "gray",
+          tabBarLabel:() => {return null},
           tabBarLabelStyle: {
-            fontSize: 12,
-            fontFamily: "SpaceGroteskMedium",
+            fontSize: 16,
+            // fontFamily: "SpaceGroteskMedium",
             // paddingBottom: 10,
           },
           tabBarStyle: {
             backgroundColor: colorScheme == "dark" ? "black" : "white",
+            borderTopColor: "transparent",
             // borderTopWidth: 0,
             // padding: 10,
             // height: 60,
@@ -71,11 +88,13 @@ const AppNavigation = () => {
         <Tab.Screen name="Saved" component={SavedScreen} />
         <Tab.Screen name="Search" component={SearchScreen} />
       </Tab.Navigator>
+      </Provider>
     );
   };
   
   return (
     //@ts-ignore
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="SplashS"
@@ -91,6 +110,7 @@ const AppNavigation = () => {
         <Stack.Screen name="HomeTabs" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

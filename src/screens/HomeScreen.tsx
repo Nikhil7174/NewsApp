@@ -18,6 +18,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import BreakingNews from "../components/BreakingNews/BreakingNews";
 import { isLoading } from "expo-font";
 import Loading from "../components/Loading";
+import { useSelector } from "react-redux";
 
 export default function HomeScreen() {
   const { colorScheme, toggleColorScheme } = useColorScheme();
@@ -43,15 +44,18 @@ export default function HomeScreen() {
   console.log(dataFromChild, "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww", dataFromChild, "www")
   const country = "us"
   console.log(country)
+
+  const cc = useSelector((state:any)=>state.cart.countryCode)
+  console.log(cc,"iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
   // Breaking News
     const { isLoading: isTrendingLoading , data: ApiData, error, isSuccess} = useQuery({
-      queryKey: ["breakingNews", dataFromChild],
-      queryFn: ()=>fetchBreakingNews(dataFromChild),
+      queryKey: ["breakingNews", cc],
+      queryFn: ()=>fetchBreakingNews(cc),
     });
   
     const { isLoading: isRecommendedLoading , data: ApiData2 } = useQuery({
-      queryKey: ["recommededNews", dataFromChild],
-      queryFn: ()=>fetchRecommendedNews(dataFromChild),
+      queryKey: ["recommededNews", cc],
+      queryFn: ()=>fetchRecommendedNews(cc),
     });
   
   console.log(dataFromChild)
@@ -108,6 +112,7 @@ export default function HomeScreen() {
         {/* News */}
         <View className="">
           <MiniHeader label="Recommended" />
+          <View className="h-[0.5px] w-full bg-slate-100 dark:bg-neutral-800" />
 
           <ScrollView
             contentContainerStyle={{
